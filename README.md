@@ -4,5 +4,5 @@ This repository stores configuration information for the different devices avail
 
 Naming scheme for config files:
 
-- MANUFACTURER_DEVICETYPE_PRODUCTNAME.json -> general config
+- MANUFACTURER_DEVICETYPE_PRODUCTNAME_config.json -> general config
 - MANUFACTURER_DEVICETYPE_PRODUCTNAME_formatter.js -> payload formatter for TTN
