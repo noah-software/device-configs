@@ -15,7 +15,7 @@ function decodeUplink(input) {
 	// = sflt162f(rawvolate) * 100;
 	
 	rawdis = bytes[4] + bytes[5] * 256;
-	decoded.level = sflt162f(rawdis) * 100;
+	decoded.level = 100-(sflt162f(rawdis) * 100);
 	
 	return {data: decoded};
   }
