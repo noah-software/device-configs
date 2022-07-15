@@ -10,12 +10,13 @@ if(msg.payload.uplink_message && msg.payload.uplink_message.decoded_payload) {
         
     }
     else if('bytes' in msg.payload.uplink_message.decoded_payload
-        && 'acceleration_x' in msg.payload.uplink_message.decoded_payload) {
+        && 'closed' in msg.payload.uplink_message.decoded_payload) {
         
         // tektelic devices (move, humidity, etc)
         Object.keys(msg.payload.uplink_message.decoded_payload).forEach(key => {
-            if(key === "humidity" || key === "moisture"
-                 || key === "temperature" || key === "closed") {
+            if((key === "humidity" || key === "moisture"
+                 || key === "temperature" || key === "closed")
+                 &&  msg.payload.uplink_message.decoded_payload[key] !== null) {
                 node.send({
                     topic: `${collectionName}/lora/0/${deviceId}/${key}`,
                     payload: {
