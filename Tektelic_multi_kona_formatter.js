@@ -43,19 +43,18 @@ function Decoder(bytes, port) {
         "temperature": null,
         "humidity": null,
         "impact_magnitude": null,
-        "break_in": null,
-        "acceleration_x": null,
-        "acceleration_y": null,
-        "acceleration_z": null,
-        "reed_count": null,
+//         "break_in": null,
+//         "acceleration_x": null,
+//         "acceleration_y": null,
+//         "acceleration_z": null,
+//         "reed_count": null,
         "moisture": null,
         "activity": null,
-        "mcu_temperature": null,
         "impact_alarm": null,
         "activity_count": null,
         "external_input": null,
         "external_input_count": null,
-        "decode_data_hex": bin2HexStr(bytes),
+//         "decode_data_hex": bin2HexStr(bytes),
         "bytes": bytes
     }
 
@@ -109,30 +108,30 @@ function Decoder(bytes, port) {
         }
 		
         // Handle break-in
-        if(0x06 === bytes[i] && 0x00 === bytes[i+1]) {
-            if(0x00 === bytes[i+2]) {
-                params.break_in = false;
-            } else if(0xFF === bytes[i+2]) {
-                params.break_in = true;
-            }
-            i = i+2;
-        }
+//         if(0x06 === bytes[i] && 0x00 === bytes[i+1]) {
+//             if(0x00 === bytes[i+2]) {
+//                 params.break_in = false;
+//             } else if(0xFF === bytes[i+2]) {
+//                 params.break_in = true;
+//             }
+//             i = i+2;
+//         }
 		
         // Handle accelerometer data
-        if(0x07 === bytes[i] && 0x71 === bytes[i+1]) {
-            // Sign-extend to 32 bits to support negative values, by shifting 24 bits
-            // (16 too far) to the left, followed by a sign-propagating right shift:
-            params.acceleration_x = (bytes[i+2]<<24>>16 | bytes[i+3])/1000;
-            params.acceleration_y = (bytes[i+4]<<24>>16 | bytes[i+5])/1000;
-            params.acceleration_z = (bytes[i+6]<<24>>16 | bytes[i+7])/1000;
-            i = i+7;
-        }
+//         if(0x07 === bytes[i] && 0x71 === bytes[i+1]) {
+//             // Sign-extend to 32 bits to support negative values, by shifting 24 bits
+//             // (16 too far) to the left, followed by a sign-propagating right shift:
+//             params.acceleration_x = (bytes[i+2]<<24>>16 | bytes[i+3])/1000;
+//             params.acceleration_y = (bytes[i+4]<<24>>16 | bytes[i+5])/1000;
+//             params.acceleration_z = (bytes[i+6]<<24>>16 | bytes[i+7])/1000;
+//             i = i+7;
+//         }
         
         // Handle reed switch count
-        if(0x08 === bytes[i] && 0x04 === bytes[i+1]) {
-            params.reed_count = (bytes[i+2] << 8) | bytes[i+3];
-            i = i+3;
-        }
+//         if(0x08 === bytes[i] && 0x04 === bytes[i+1]) {
+//             params.reed_count = (bytes[i+2] << 8) | bytes[i+3];
+//             i = i+3;
+//         }
 		
         // Handle moisture
         if(0x09 === bytes[i] && 0x00 === bytes[i+1]) {
@@ -167,7 +166,7 @@ function Decoder(bytes, port) {
         if(0x0B === bytes[i] && 0x67 === bytes[i+1]) {
             // Sign-extend to 32 bits to support negative values, by shifting 24 bits
             // (16 too far) to the left, followed by a sign-propagating right shift:
-            params.mcu_temperature = (bytes[i+2]<<24>>16 | bytes[i+3]) / 10;
+            params.temperature = (bytes[i+2]<<24>>16 | bytes[i+3]) / 10;
             i = i+3;
         }
         
