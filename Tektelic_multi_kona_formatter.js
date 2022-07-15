@@ -38,7 +38,7 @@ function Decoder(bytes, port) {
 
     var params = {
         "battery_voltage": null,
-        "reed_state": null,
+        "closed": null,
         "light_detected": null,
         "temperature": null,
         "humidity": null,
@@ -69,9 +69,9 @@ function Decoder(bytes, port) {
         // Handle reed switch state
         if(0x01 === bytes[i] && 0x00 === bytes[i+1]) {
             if(0x00 === bytes[i+2]) {
-                params.reed_state = true;
+                params.closed = true;
             } else if(0xFF === bytes[i+2]) {
-                params.reed_state = false;
+                params.closed = false;
             }
             i = i+2;
         }
